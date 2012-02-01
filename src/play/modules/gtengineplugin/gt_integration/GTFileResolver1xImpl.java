@@ -68,6 +68,7 @@ public class GTFileResolver1xImpl implements GTFileResolver.Resolver {
     }
 
     public GTTemplateLocationReal getTemplateLocationFromRelativePath(String relativePath) {
+        
         VirtualFile vf = VirtualFile.fromRelativePath(relativePath);
         if ( vf == null || !vf.exists() || vf.isDirectory()) {
             return null;
