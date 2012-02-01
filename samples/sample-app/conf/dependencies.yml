@@ -7,6 +7,6 @@ require:
 repositories:
     - My modules:
         type:       local
-        artifact:   /Users/mortenkjetland/projects/[module]
+        artifact:   ${application.path}/../../../[module]
         contains:
             - faster-groovy-templates
