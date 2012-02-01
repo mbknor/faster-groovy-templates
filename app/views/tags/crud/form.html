@@ -1,0 +1,139 @@
+%{
+    if(_object) {
+        currentObject = _object
+        currentType = _('controllers.CRUD$ObjectType').forClass(_object.getClass().getName())
+    } else if(_class) {
+        currentObject = null;
+        currentType = _('controllers.CRUD$ObjectType').forClass(_class)
+    } else {
+        currentObject = _caller.object
+        currentType = _caller.type
+    }
+
+    // Eval fields tags
+    fieldsHandler = [:]
+    if(_body) {
+        _body.setProperty('fieldsHandler', fieldsHandler);
+        _body.toString(); // we skeep the real result ...
+    }
+}%
+
+#{list items:_fields ?: currentType.fields*.name, as:'fieldName'}
+
+    %{
+        am = ''
+    }%
+
+    %{ field = currentType.getField(fieldName) }%
+
+<div class="crudField crud_${field.type}">
+
+    #{if fieldsHandler[fieldName]}
+        %{
+            def handler = fieldsHandler[fieldName]
+            handler.setProperty('fieldName', 'object.' + field?.name + (field?.type == 'relation' ? '.' + currentType.keyName : ''))
+            def oldObject = handler.getProperty('object')
+            handler.setProperty('object', currentObject)
+            out.println(handler.toString())
+            handler.setProperty('object', oldObject)
+            handler.setProperty('fieldName', null)
+        }%
+    #{/if}
+    #{else}
+
+        #{ifnot field}
+            %{ throw new play.exceptions.TagInternalException('Field not found -> ' + fieldName) }%
+        #{/ifnot}
+
+        #{if field.type == 'text'}
+            #{crud.textField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+        #{/if}
+
+        #{if field.type == 'password'}
+            #{crud.passwordField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+        #{/if}
+
+        #{if field.type == 'binary'}
+            #{crud.fileField name:field.name, value:(currentObject ? currentObject[field.name] : null), id:currentObject?.id /}
+        #{/if}
+
+        #{if field.type == 'longtext'}
+            #{crud.longtextField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+        #{/if}
+
+        #{if field.type == 'number'}
+            #{crud.numberField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+            %{ am = 'crud.help.numeric' }%
+        #{/if}
+
+        #{if field.type == 'date'}
+            #{crud.dateField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+            %{ am = messages.get('crud.help.dateformat',play.libs.I18N.getDateFormat()) }%
+        #{/if}
+
+        #{if field.type == 'relation'}
+            #{crud.relationField name:field.name, value:(currentObject ? currentObject[field.name] : null), field:field /}
+        #{/if}
+
+        #{if field.type == 'boolean'}
+            #{crud.checkField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+        #{/if}
+
+        #{if field.type == 'enum'}
+            #{crud.enumField name:field.name, value:(currentObject ? currentObject[field.name] : null), property:field /}
+        #{/if}
+
+        #{if field.type == 'hidden'}
+            #{crud.hiddenField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+        #{/if}
+
+    <span class="crudHelp">
+        &{am}
+            #{list items:play.data.validation.Validation.getValidators(currentType.entityClass, fieldName, 'object'), as: 'i' }
+                %{
+                    switch (i.annotation.annotationType().name.substring(21)) {
+                        case "Required":
+                            out.println(messages.get('crud.help.required'))
+                            break;
+                        case "MinSize":
+                            out.println(messages.get('crud.help.minlength', i.annotation.value()))
+                            break;    
+                        case "MaxSize":
+                            out.println(messages.get('crud.help.maxlength', i.annotation.value()))
+                            break;
+                        case "Range":
+                            out.println(messages.get('crud.help.range', i.annotation.min(), i.annotation.max()))
+                            break;
+                        case "Min":
+                            out.println(messages.get('crud.help.min', i.annotation.value()))
+                            break;
+                        case "Email":
+                            out.println(messages.get('crud.help.email'))
+                            break;
+                        case "Equals":
+                            out.println(messages.get('crud.help.equals', i.params.equalsTo))
+                            break;
+                        case "Future":
+                            if(i.params.reference) {
+                                out.println(messages.get('crud.help.after', i.params.reference))
+                            } else {
+                                out.println(messages.get('crud.help.future'))
+                            }
+                            break;
+                        case "Past":
+                            if(i.params.reference) {
+                                out.println(messages.get('crud.help.before', i.params.reference))
+                            } else {
+                                out.println(messages.get('crud.help.past'))
+                            }
+                            break;
+                    }
+                }%
+            #{/list}
+    </span>
+
+    #{/else}
+
+</div>
+
+#{/list}

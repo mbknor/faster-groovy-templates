@@ -1,0 +1,10 @@
+This is a standalone implementation of the groovy template engine used in Play framework 1.x
+
+The purpose of this project is to make the same implementaton available in Play 2.0 also.
+
+This new implementation has better performance than the old one:
+
+http://kjetland.com/blog/2011/11/playframework-new-faster-groovy-template-engine/
+
+The project is using sbt
+

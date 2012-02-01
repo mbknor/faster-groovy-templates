@@ -1,0 +1,57 @@
+%{ pName = 'object.' + _name + '.' + play.db.Model.Manager.factoryFor(_field.property.relationType).keyName() }%
+
+#{field 'object.' + _name}
+    <label for="${field.id}">
+        &{_name}
+    </label>
+
+    #{if _field.multiple}
+        <input type="hidden" name="${pName}" value="" />
+        <select id="${field.id}" name="${pName}" multiple="yes">
+            #{list items: _field.choices, as: 'c'}
+            %{
+                selected = false;
+                if(field.error?.message != 'validation.required') {
+                    if(params[pName]) {
+                        selected = params.getAll(${pName}).contains(c._key().toString())
+                    } else {
+                        for (it2 in _value) {
+                            if(it2._key() == c._key()) {
+                                selected = true;
+                            }
+                        }
+                    }
+                }
+            }%
+            <option value="${c._key()}" ${selected ? 'selected="true"'.raw() : ''}>${c}</option>
+            #{/list}
+        </select>
+    #{/if}
+    #{else}
+        <select id="${field.id}" name="${pName}">
+            #{ifnot _field.required}
+                <option value="">&{'crud.none'}</option>
+            #{/ifnot}
+            #{else}
+                <option value="">&{'crud.selectValue'}</option>
+            #{/else}
+            #{list items: _field.choices, as: 'c'}
+            %{
+                selected = false
+                if(field.error?.message != 'validation.required') {
+                    if(params[pName]) {
+                        selected = (c._key().toString() == params[pName])
+                    } else {
+                        selected = c._key() == _value?._key()
+                    }
+                }
+            }%
+            <option value="${c._key()}" ${selected ? 'selected="true"'.raw() : ''}>${c}</option>
+            #{/list}
+        </select>
+    #{/else}
+
+    #{ifError field.name}
+        <span class="error">${field.error.raw()}</span>
+    #{/ifError}
+#{/field}

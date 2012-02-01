@@ -1,0 +1,23 @@
+#{field 'object.' + _name}
+<label for="${field.id}">
+    &{_name}
+</label>
+
+<select id="${field.id}" name="${field.name}">
+        #{list items:_property.choices, as: 'c'}
+        %{
+                selected = false;
+                if(field.error?.message != 'validation.required') {
+                    selected = c == _value;
+                }
+                label = c.toString()
+
+        }%
+        <option name="${c.name()}" ord="${c.ordinal()}" value="${c.name()}" ${selected ? 'selected="true"'.raw() : ''}>${label}</option>
+        #{/list}
+</select>
+
+#{ifError field.name}
+    <span class="error">${field.error.raw()}</span>
+#{/ifError}
+#{/field}

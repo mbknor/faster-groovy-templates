@@ -1,0 +1,12 @@
+# Application dependencies
+
+require:
+    - play
+    - faster-groovy-templates -> faster-groovy-templates
+
+repositories:
+    - My modules:
+        type:       local
+        artifact:   /Users/mortenkjetland/projects/[module]
+        contains:
+            - faster-groovy-templates
