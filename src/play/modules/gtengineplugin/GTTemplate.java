@@ -42,7 +42,7 @@ public class GTTemplate extends Template {
 
     @Override
     public void compile() {
-        throw new RuntimeException("not implemented");
+        //Don't have to do anything here..
     }
 
     @Override
