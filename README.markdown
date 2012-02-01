@@ -8,7 +8,7 @@ How to use it?
 
  * You use this module as any other Play module, the only special thing you have to do, is to include this module first.
 
-One way of including the module is by using the dependencies.yml file. Remember to call "play dependency" before "play run" the first time.
+One way of including the module is by using the dependencies.yml file. Remember to call "play dependencies" before "play run" the first time.
 
 Download it from github (or git clone it), then add dependency to it like this:
 
