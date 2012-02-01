@@ -8,6 +8,26 @@ How to use it?
 
  * You use this module as any other Play module, the only special thing you have to do, is to include this module first.
 
+One way of including the module is by using the dependencies.yml file. Remember to call "play dependency" before "play run" the first time.
+
+Download it from github (or git clone it), then add dependency to it like this:
+
+	require:
+    	- play
+    	- faster-groovy-templates -> faster-groovy-templates
+	
+	repositories:
+    	- My modules:
+        	type:       local
+        	artifact:   ${application.path}/relativePathToWhereYouDownloadedIt/[module]
+        	contains:
+            	- faster-groovy-templates
+
+Or you can add it do the application.conf file like this:
+
+	module.faster-groovy-templates=../relativePathToWhereYouDownloadedIt/
+
+
 Features
 ==========
  * Almost 100% compatible with old Play Groovy template implementation (See note below for more info)
