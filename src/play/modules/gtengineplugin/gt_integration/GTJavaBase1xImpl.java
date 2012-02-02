@@ -76,10 +76,10 @@ public abstract class GTJavaBase1xImpl extends GTJavaBase {
     }
 
     @Override
-    public void internalRenderTemplate(Map<String, Object> args, boolean startingNewRendering) throws GTTemplateNotFoundWithSourceInfo, GTRuntimeException {
+    public void internalRenderTemplate(Map<String, Object> args, GTJavaBase callingTemplate) throws GTTemplateNotFoundWithSourceInfo, GTRuntimeException {
         // make sure the old layoutData referees to the same in map-instance as what the new impl uses
         BaseTemplate.layoutData.set( GTJavaBase.layoutData.get() );
-        super.internalRenderTemplate(args, startingNewRendering);
+        super.internalRenderTemplate(args, callingTemplate);
     }
 
     @Override
