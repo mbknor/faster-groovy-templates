@@ -6,8 +6,6 @@ This is a module for Play! Framework 1 applications which replaces the default g
 How to use it?
 ============
 
- * You use this module as any other Play module, the only special thing you have to do, is to include this module first.
-
 One way of including the module is by using the dependencies.yml file. Remember to call "play dependencies" before "play run" the first time.
 
 Download it from github (or git clone it), then add dependency to it like this:
@@ -38,13 +36,6 @@ Features
  * Supports old FastTag
  * Supports new GTFastTag which is optimized for inserting rendered tag-body-content (without copying)
 
-Requirements
-==========
-
- * Include this module before other modules
-  * Why? Because it contains its own version of CRUD templates that are modified to be compatible with gt-engine
-
-
 Do I have to modify my templates?
 ==========
 
@@ -65,7 +56,11 @@ or
 
 	#{list myList}
 
+----------------
 
 If you find issues, please report them here: https://github.com/mbknor/faster-groovy-templates/issues
 
+---------------
+
+Note if you also use the CRUD-module: The original CRUD template files uses a lot of partial-groovy-code-snipits. Since this is not supported in gt-engine, faster-groovy-templates includes its own version of these template files - with fixed syntax. You don't have to do anything special. These files are used automatically.
 

@@ -1,0 +1,1 @@
+The purpose of this file is to make it possible to detect which template-path in the list is ours
