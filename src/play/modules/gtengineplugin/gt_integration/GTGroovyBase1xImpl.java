@@ -3,7 +3,6 @@ package play.modules.gtengineplugin.gt_integration;
 import groovy.lang.GroovyObjectSupport;
 import groovy.lang.MissingPropertyException;
 import play.Play;
-import play.classloading.enhancers.LocalvariablesNamesEnhancer;
 import play.data.binding.Unbinder;
 import play.exceptions.ActionNotFoundException;
 import play.exceptions.NoRouteFoundException;
@@ -73,6 +72,44 @@ public class GTGroovyBase1xImpl extends GTGroovyBase {
             return this;
         }
 
+        private Integer computeMethodHash(Class<?>[] parameters) {
+            String[] names = new String[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                Class<?> param = parameters[i];
+                names[i] = "";
+                if (param.isArray()) {
+                    int level = 1;
+                    param = param.getComponentType();
+                    // Array of array
+                    while (param.isArray()) {
+                        level++;
+                        param = param.getComponentType();
+                    }
+                    names[i] = param.getName();
+                    for (int j = 0; j < level; j++) {
+                        names[i] += "[]";
+                    }
+                } else {
+                    names[i] = param.getName();
+                }
+            }
+            return computeMethodHash(names);
+        }
+
+        private Integer computeMethodHash(String[] parameters) {
+            StringBuffer buffer = new StringBuffer();
+            for (String param : parameters) {
+                buffer.append(param);
+            }
+            Integer hash = buffer.toString().hashCode();
+            if (hash < 0) {
+                return -hash;
+            }
+            return hash;
+        }
+
+
+
         @Override
         @SuppressWarnings("unchecked")
         public Object invokeMethod(String name, Object param) {
@@ -88,7 +125,7 @@ public class GTGroovyBase1xImpl extends GTGroovyBase {
                     try {
                         Map<String, Object> r = new HashMap<String, Object>();
                         Method actionMethod = (Method) ActionInvoker.getActionMethod(action)[1];
-                        String[] names = (String[]) actionMethod.getDeclaringClass().getDeclaredField("$" + actionMethod.getName() + LocalvariablesNamesEnhancer.LocalVariablesNamesTracer.computeMethodHash(actionMethod.getParameterTypes())).get(null);
+                        String[] names = (String[]) actionMethod.getDeclaringClass().getDeclaredField("$" + actionMethod.getName() + computeMethodHash(actionMethod.getParameterTypes())).get(null);
                         if (param instanceof Object[]) {
                             if(((Object[])param).length == 1 && ((Object[])param)[0] instanceof Map) {
                                 r = (Map<String,Object>)((Object[])param)[0];
