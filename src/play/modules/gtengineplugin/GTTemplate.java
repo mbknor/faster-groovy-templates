@@ -109,10 +109,11 @@ public class GTTemplate extends Template {
             throw new TemplateExecutionException( t, e.lineNo, cause.getMessage(), cause);
         } catch ( GTRuntimeException e) {
             Throwable cause = e.getCause();
+            this.loadSource();
             if (cause != null) {
-                throw new TemplateExecutionException(null, 0, cause.getMessage(), cause);
+                throw new TemplateExecutionException(this, 0, cause.getMessage(), cause);
             } else {
-                throw new TemplateExecutionException(null, 0, e.getMessage(), e);
+                throw new TemplateExecutionException(this, 0, e.getMessage(), e);
             }
         }
 
