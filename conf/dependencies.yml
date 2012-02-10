@@ -1,4 +1,4 @@
-self: play -> faster-groovy-templates 0.1
+self: play -> fastergt 1.0
 
 require:
     - play
