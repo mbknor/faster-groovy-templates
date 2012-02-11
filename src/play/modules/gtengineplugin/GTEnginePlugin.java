@@ -15,17 +15,13 @@ public class GTEnginePlugin extends PlayPlugin {
             "{play}/framework/templates/tags/selenium.html",
             "{module:crud}/"
     };
-    
 
-    static {
-        // need to init immediately since templates are being used even before onApplicationStart is fired
+    synchronized private void init() {
+        fixTemplatesPathOrder();
         TemplateLoader.init();
     }
-    
-    static boolean haveInited = false;
-    
-    private void init() {
 
+    private void fixTemplatesPathOrder() {
         // Make sure our app/view-folder is the first one amongst the modules listed in Play.templatesPath
         // Look for our path
         int index = 0;
@@ -44,24 +40,22 @@ public class GTEnginePlugin extends PlayPlugin {
             }
             index++;
         }
+    }
 
-        TemplateLoader.init();
-        haveInited = true;
+    @Override
+    public void onLoad() {
+        // Must init right away since we have to be inited when routes are being parsed
+        init();
     }
 
     @Override
     public void onApplicationStart() {
         // need to re-init when app restarts
         init();
-        
     }
 
     @Override
     public Template loadTemplate(VirtualFile file) {
-        
-        if (!haveInited) {
-            init();
-        }
         
         // Some templates are bundled with this module - fixed versions
         // Must check if we are requesting such template - and then ignore it..

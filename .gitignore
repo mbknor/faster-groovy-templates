@@ -7,3 +7,4 @@ tmp
 *.ipr
 *.iws
 dist
+precompiled
