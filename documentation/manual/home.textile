@@ -49,6 +49,7 @@ or
 h2. Sample application
 
 Since this module just replaces the default template engine, there is not much new to show in a sample application. But you can find a simple sample application in the samples-folder.
+
 h2. Getting started
 
 All this sample application is doing, is to add dependency to the "Faster Groovy Templates" module.
@@ -92,7 +93,19 @@ repositories:
 
 Or you can add it do the application.conf file like this:
 
-	module.faster-groovy-templates=../relativePathToWhereYouDownloadedIt/
+<pre>
+module.faster-groovy-templates=../relativePathToWhereYouDownloadedIt/
+</pre>
+
+h2. Configuration
+
+The following configuration-setting enables "Faster Groovy Templates" to write the generated java and groovy source code to disk. This makes it possible to step-debug the template-code.
+
+Add the following to "application.conf":
+
+<pre>
+save-gttemplate-source-to-disk = template-src	
+</pre
 
 h2. Project page
 
