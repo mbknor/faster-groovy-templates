@@ -5,6 +5,13 @@ This is a module for Play! Framework 1 applications which replaces the default g
 
 GT-Engine is also used in the [Play 2.0 module](https://github.com/mbknor/gt-engine-play2) that enables legacy support for groovy templates.
 
+History:
+=============
+
+ * Version 1.1 - 14. feb 2012
+  * Fixed various bugs related to #{set/} and #{get/}
+ * Version 1.0 - 12. feb 2012
+
 How to use it?
 ============
 
