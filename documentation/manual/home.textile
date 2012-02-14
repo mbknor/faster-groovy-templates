@@ -7,7 +7,7 @@ GT-Engine is also used in the "Play 2.0 module":https://github.com/mbknor/gt-eng
 h3. History
 
 * Version 1.1 - 14. feb 2012
- * Fixed various bugs related to #{set/} and #{get/}
+** Fixed various bugs related to #{set/} and #{get/}
 * Version 1.0 - 12. feb 2012
 
 
