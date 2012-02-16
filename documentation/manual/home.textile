@@ -112,7 +112,7 @@ Add the following to "application.conf":
 
 <pre>
 save-gttemplate-source-to-disk = template-src	
-</pre
+</pre>
 
 h2. Project page
 
