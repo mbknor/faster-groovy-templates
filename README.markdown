@@ -8,6 +8,8 @@ GT-Engine is also used in the [Play 2.0 module](https://github.com/mbknor/gt-eng
 History:
 =============
 
+ * Version 1.2 - 19. feb 2012
+  * Fixed issue related to calling method on java object with name-collision with JavaExtension-name
  * Version 1.1 - 14. feb 2012
   * Fixed various bugs related to #{set/} and #{get/}
  * Version 1.0 - 12. feb 2012
