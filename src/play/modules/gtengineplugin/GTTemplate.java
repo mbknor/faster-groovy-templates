@@ -3,6 +3,7 @@ package play.modules.gtengineplugin;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 import play.Play;
+import play.exceptions.JavaExecutionException;
 import play.exceptions.TemplateCompilationException;
 import play.exceptions.TemplateExecutionException;
 import play.exceptions.TemplateNotFoundException;
@@ -13,6 +14,7 @@ import play.template2.GTJavaBase;
 import play.template2.GTRenderingResult;
 import play.template2.GTTemplateLocation;
 import play.template2.GTTemplateLocationReal;
+import play.template2.exceptions.GTAppClassException;
 import play.template2.exceptions.GTCompilationExceptionWithSourceInfo;
 import play.template2.exceptions.GTRuntimeException;
 import play.template2.exceptions.GTRuntimeExceptionWithSourceInfo;
@@ -115,6 +117,8 @@ public class GTTemplate extends Template {
             } else {
                 throw new TemplateExecutionException(this, 0, e.getMessage(), e);
             }
+        } catch (GTAppClassException e) {
+            throw new JavaExecutionException(Play.classes.getApplicationClass(e.className), e.lineNo, e.getCause());
         }
 
     }

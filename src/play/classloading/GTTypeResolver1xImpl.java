@@ -29,4 +29,7 @@ public class GTTypeResolver1xImpl implements GTTypeResolver {
         return Play.classloader.getClassDefinition(name);
     }
 
+    public boolean isApplicationClass(String className) {
+        return Play.classes.getApplicationClass(className) != null;
+    }
 }

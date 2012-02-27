@@ -1,4 +1,4 @@
-self: play -> fastergt 1.2
+self: play -> fastergt 1.3
 
 require:
     - play
