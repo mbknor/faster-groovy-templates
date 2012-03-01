@@ -92,7 +92,7 @@ public class GTLegacyFastTagResolver1X implements GTLegacyFastTagResolver {
 
     }
 
-    public static void legacyFastTagBridge(String legacyFastTagClassName, String legacyFastTagMethodName, GTJavaBase template, Map<String, Object> args, Closure body ) {
+    public static void legacyFastTagBridge(String legacyFastTagClassName, String legacyFastTagMethodName, final GTJavaBase gtTemplate, Map<String, Object> args, Closure body ) {
         try {
 
             // get the class with the fasttag method on
@@ -103,12 +103,17 @@ public class GTLegacyFastTagResolver1X implements GTLegacyFastTagResolver {
                 throw new RuntimeException("A fast-tag method must be static: " + m);
             }
 
-            PrintWriter out = new PrintWriter( template.out );
+            PrintWriter out = new PrintWriter( gtTemplate.out );
             GroovyTemplate.ExecutableTemplate executableTemplate = new GroovyTemplate.ExecutableTemplate() {
 
                 @Override
                 public Object run() {
                     throw new RuntimeException("Not implemented in this wrapper");
+                }
+
+                @Override
+                public Object getProperty(String property) {
+                    return gtTemplate.binding.getProperty(property);
                 }
             };
             
