@@ -8,6 +8,8 @@ GT-Engine is also used in the [Play 2.0 module](https://github.com/mbknor/gt-eng
 History:
 =============
 
+ * Version 1.5 - 19. mar 2012
+  * Fixes issue #17 - No more name-clash-problem with static methods and JavaExtensions
  * Version 1.4 - 4. mar 2012
   * Fixed issue #13 - More intelligent when finding end-of-tag '}'
   * Fixed issue #14 - GroovyTemplate.ExecutableTemplate.getProperty
