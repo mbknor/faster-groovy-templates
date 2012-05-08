@@ -8,6 +8,8 @@ GT-Engine is also used in the [Play 2.0 module](https://github.com/mbknor/gt-eng
 History:
 =============
 
+ * Version 1.7 - 8. May 2012
+  * Fixed issue #19 - Improved parsing when using {} inside ${}
  * Version 1.6 - 8. April 2012
   * Fixes issue #18 - Listing enums with #{list} now works
  * Version 1.5 - 19. mar 2012
