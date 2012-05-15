@@ -8,3 +8,4 @@ tmp
 *.iws
 dist
 precompiled
+atlassian-ide-plugin.xml

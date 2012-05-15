@@ -1,4 +1,4 @@
-self: play -> fastergt 1.7
+self: play -> fastergt 1.8-SNAPSHOT
 
 require:
     - play
