@@ -5,9 +5,13 @@ This is a module for Play! Framework 1 applications which replaces the default g
 
 GT-Engine is also used in the [Play 2.0 module](https://github.com/mbknor/gt-engine-play2) that enables legacy support for groovy templates.
 
+See below how to download the plugin from my site.
+
 History:
 =============
 
+ * Version 1.8 - 12. April 2013
+  * Fixed missing-args bug when invoking some Groovy methods. If groovy method name was equal to a JavaExtension-method-name, the args to the methodcall could be null.
  * Version 1.7 - 8. May 2012
   * Fixed issue #19 - Improved parsing when using {} inside ${}
  * Version 1.6 - 8. April 2012
@@ -29,6 +33,22 @@ How to use it?
 ============
 
 One way of including the module is by using the dependencies.yml file. Remember to call "play dependencies" before "play run" the first time.
+
+
+Use dependencies.yml like this to download the plugin from my site:
+
+  require:
+      - play
+      - kjetland -> fastergt 1.8
+
+  repositories:
+      - kjetland:
+          type:       http
+          artifact:   "http://mbknor.github.com/play-modules/[module]-[revision].zip"
+          contains:
+              - kjetland -> *
+
+
 
 Download it from github (or git clone it), then add dependency to it like this:
 

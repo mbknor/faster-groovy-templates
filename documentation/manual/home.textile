@@ -6,6 +6,8 @@ GT-Engine is also used in the "Play 2.0 module":https://github.com/mbknor/gt-eng
 
 h3. History
 
+* Version 1.8 - 12. April 2013
+** Fixed missing-args bug when invoking some Groovy methods. If groovy method name was equal to a JavaExtension-method-name, the args to the methodcall could be null.
 * Version 1.7 - 8. May 2012
 ** Fixed issue #19 - Improved parsing when using {} inside ${}
 * Version 1.6 - 8. April 2012
