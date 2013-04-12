@@ -37,16 +37,16 @@ One way of including the module is by using the dependencies.yml file. Remember 
 
 Use dependencies.yml like this to download the plugin from my site:
 
-  require:
-      - play
-      - kjetland -> fastergt 1.8
-
-  repositories:
-      - kjetland:
-          type:       http
-          artifact:   "http://mbknor.github.com/play-modules/[module]-[revision].zip"
-          contains:
-              - kjetland -> *
+    require:
+        - play
+        - kjetland -> fastergt 1.8
+    
+    repositories:
+        - kjetland:
+            type:       http
+            artifact:   "http://mbknor.github.com/play-modules/[module]-[revision].zip"
+            contains:
+                - kjetland -> *
 
 
 
